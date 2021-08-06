@@ -1,10 +1,16 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  CreateStudentDto,
+  FindStudentResponeDto,
+  StudentResponseDto,
+  UpdateStudentDto,
+} from './dto/student.dto';
 
 @Controller('students')
 export class StudentController {
   //get all the students
   @Get()
-  getStudents() {
+  getStudents(): FindStudentResponeDto[] {
     return 'All data of  students';
   }
 
@@ -12,15 +18,15 @@ export class StudentController {
   //: ==> colon represents that its a dynamic route.
   @Get('/:studentId')
   getStudentById(
-    //First method to use Param 
+    //First method to use Param
     // @Param()
     // params: {
     //   studentId: string;
     // },
     //Second method to use Param
     @Param('studentId')
-      studentId: string
-  ) {
+    studentId: string,
+  ): StudentResponseDto {
     return `Get Student by Id your id is ${studentId}`;
     // return `Get Student by Id your id is ${params.studentId}`;
   }
@@ -29,17 +35,18 @@ export class StudentController {
   @Post('/createStudent')
   createStudent(
     // @Body() params
-    @Body('name') name //name will store in name
-  ) {
+    // @Body('name') name //name will store in name
+    @Body() body: CreateStudentDto,
+  ): StudentResponseDto {
     // return params;
-    return name;
+    return `Create new Student with that details ${JSON.stringify(body)}`;
   }
 
   //update a student
   @Put('/updateStudent/:studentId')
   updateStudent(
     @Param('studentId') studentId: string,
-    @Body() body
+    @Body() body: UpdateStudentDto,
   ) {
     return `Update Student by Id ${studentId}`;
   }
