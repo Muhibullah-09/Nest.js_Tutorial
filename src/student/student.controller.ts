@@ -5,13 +5,15 @@ import {
   StudentResponseDto,
   UpdateStudentDto,
 } from './dto/student.dto';
+import { StudentService } from './student.service';
 
 @Controller('students')
 export class StudentController {
+  constructor(private readonly studentService:StudentService) {}
   //get all the students
   @Get()
   getStudents(): FindStudentResponeDto[] {
-    return 'All data of  students';
+    return this.studentService.getStudents();
   }
 
   //get a specific student
@@ -26,8 +28,8 @@ export class StudentController {
     //Second method to use Param
     @Param('studentId')
     studentId: string,
-  ): StudentResponseDto {
-    return `Get Student by Id your id is ${studentId}`;
+  ): FindStudentResponeDto {
+    return this.studentService.getStudentById(studentId);
     // return `Get Student by Id your id is ${params.studentId}`;
   }
 
