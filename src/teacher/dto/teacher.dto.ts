@@ -1,4 +1,4 @@
 export class FindTeachersDto {
-    id: number;
+    id: string;
     name: string;
 }

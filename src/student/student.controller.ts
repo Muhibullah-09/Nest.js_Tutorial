@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import {
   CreateStudentDto,
-  FindStudentResponeDto,
+  FindStudentsResponseDto,
   StudentResponseDto,
   UpdateStudentDto,
 } from './dto/student.dto';
@@ -9,10 +9,10 @@ import { StudentService } from './student.service';
 
 @Controller('students')
 export class StudentController {
-  constructor(private readonly studentService:StudentService) {}
+  constructor(private readonly studentService: StudentService) {}
   //get all the students
   @Get()
-  getStudents(): FindStudentResponeDto[] {
+  getStudents(): FindStudentsResponseDto[] {
     return this.studentService.getStudents();
   }
 
@@ -28,7 +28,7 @@ export class StudentController {
     //Second method to use Param
     @Param('studentId')
     studentId: string,
-  ): FindStudentResponeDto {
+  ): FindStudentsResponseDto {
     return this.studentService.getStudentById(studentId);
     // return `Get Student by Id your id is ${params.studentId}`;
   }
@@ -41,7 +41,8 @@ export class StudentController {
     @Body() body: CreateStudentDto,
   ): StudentResponseDto {
     // return params;
-    return `Create new Student with that details ${JSON.stringify(body)}`;
+    return this.studentService.createStudent(body);
+    // return `Create new Student with that details ${JSON.stringify(body)}`;
   }
 
   //update a student
@@ -49,7 +50,8 @@ export class StudentController {
   updateStudent(
     @Param('studentId') studentId: string,
     @Body() body: UpdateStudentDto,
-  ) {
-    return `Update Student by Id ${studentId}`;
+  ): StudentResponseDto {
+    return this.studentService.updateStudent(body, studentId);
+    // return `Update Student by Id ${studentId}`;
   }
 }

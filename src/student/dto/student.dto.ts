@@ -1,4 +1,4 @@
-export class FindStudentResponeDto {
+export class FindStudentsResponseDto {
   id: string;
   name: string;
   teacher: string;
@@ -19,3 +19,4 @@ export class UpdateStudentDto {
   name: string;
   teacher: string;
 }
+ 
