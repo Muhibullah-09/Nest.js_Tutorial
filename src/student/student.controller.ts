@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import {
   CreateStudentDto,
   FindStudentsResponseDto,
@@ -35,11 +35,11 @@ export class StudentController {
 
   //create a new student
   @Post('/createStudent')
+  @UsePipes(new ValidationPipe())
   createStudent(
     // @Body() params
     // @Body('name') name //name will store in name
-    @Body() body: CreateStudentDto,
-  ): StudentResponseDto {
+    @Body() body: CreateStudentDto): StudentResponseDto {
     // return params;
     return this.studentService.createStudent(body);
     // return `Create new Student with that details ${JSON.stringify(body)}`;

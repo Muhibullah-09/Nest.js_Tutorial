@@ -1,3 +1,5 @@
+import { IsDefined, IsString } from "class-validator";
+
 export class FindStudentsResponseDto {
   id: string;
   name: string;
@@ -11,7 +13,12 @@ export class StudentResponseDto {
 }
 
 export class CreateStudentDto {
+  @IsString()
+  @IsDefined()
   name: string;
+
+  @IsString()
+  @IsDefined()
   teacher: string;
 }
 
